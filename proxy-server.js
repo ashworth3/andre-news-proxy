@@ -4,15 +4,15 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-// Render will inject this
 const COINDESK_API_KEY = process.env.COINDESK_API_KEY;
 
 app.use(cors());
 
 app.get('/news', async (req, res) => {
   try {
-    const response = await fetch('https://data-api.coindesk.com/news/v1/article/list', {
+    const url = 'https://data-api.coindesk.com/news/v1/article/list?lang=EN&limit=10';
+
+    const response = await fetch(url, {
       headers: {
         'x-api-key': COINDESK_API_KEY
       }
@@ -27,5 +27,5 @@ app.get('/news', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
